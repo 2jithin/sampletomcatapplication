@@ -96,7 +96,7 @@ pipeline {
                         echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
 						//scp /var/lib/jenkins/workspace/target
-						scp webapp/target/webapp.war ec2-user@ip-172-31-20-227:/root/tomcat/webapp
+						scp webapp/target/webapp.war ec2-user@18.117.241.251:/root/tomcat/webapp
 						
                     }
                     
