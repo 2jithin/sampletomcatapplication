@@ -30,7 +30,7 @@ pipeline {
 	    }
 
     stages {
-        stage('A_Testing') {
+        stage('A_CheckoutPrerequisites') {
             steps {
                 //checkout scm
                 script {
@@ -55,8 +55,6 @@ pipeline {
                 }
             }
         }
-}
-    stages {
         stage('B_Building') {
             steps {
                 //checkout scm
@@ -82,9 +80,7 @@ pipeline {
                 }
             }
         }
-}
-    stages {
-        stage('C_Deploy') {
+        stage('B_Deploy') {
             steps {
                 //checkout scm
                 script {
@@ -109,5 +105,5 @@ pipeline {
                 }
             }
         }
-}
+    }
 }	
