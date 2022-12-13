@@ -1,0 +1,39 @@
+// ***********DON'T CHANGE ANY PARAMETER OR DETAILS IN SCRIPT FILE >This May lead to failure testing and deploy.**************
+pipeline {
+    agent any
+
+	        // Environment Variables
+            
+	        environment {
+	        // Remove brackets below({}) update project details inside double quotes
+	        ProjectCloneUrl = "{}"
+	        GitLab_SDMND = "{}"
+	        GitLabProjectId = "{}"
+	        ReleaseFolder = "{}"
+	        ReleaseEnvironment = "Production"
+	        ReleaseTenant = "Prod"
+	        
+            //By Default Configuration :
+	        ithubBuildLoc = "C:\\Temp\\ReleaseBuildPackage"
+	        ithub_TestResultLoc = "C:\\Temp\\testResults.xml"
+	        ithub_VerifyResultLoc = "C:\\Temp\\CodeReviewRunResult\\TCRResult.txt"
+	        ithub_ORCH_URL = "${env.OrchURL}"
+
+	        // ***********DON'T CHANGE ANY PARAMETER OR SCRIPT SYNTAX WITHOUT ANY GUIDENCE >This May lead to failure on testing and deploy.************** 
+	        
+	    }
+
+	    options {
+	        //timestamps()
+			timeout(time:60, unit:'MINUTES')
+	        skipDefaultCheckout true
+	    }
+
+    stages {
+        stage('A_Testing') {
+            steps {
+                //checkout scm
+                script {
+                    skipRemainingStages = false
+                    try {
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Code Review Testing started  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' echo"- - - - cleaning workspace - - - -" cleanWs() deleteDir() sleep 5 echo'+ + + cloning + + +' def cloneurl="git clone ${env.ProjectCloneUrl} " +"Development" echo cloneurl bat (cloneurl) sleep 5 echo'+++++(Writing to Notepadfile)+++++' echo'Files in folders' sh ('ls') * if (resulttxt=='Success' ){ echo'******** TCR Testing successful **********' updateGitlabCommitStatus name:'A_Testing' , state:'success' echo'Moving to next verification stage...' } else { echo'------TCR Testing Failed ------' updateGitlabCommitStatus name:'A_Testing' , state:'failed' skipRemainingStages=true } * } catch (Exception exc1) { skipRemainingStages=true echo'******Failed******' } if (skipRemainingStages) { currentBuild.result='Failure in Testing' error("Stopping early") } } } } stage('Build_Verify') { steps { script { skipRemainingStages=false try { echo' >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Build run started <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' sleep 5 * if (buildresult=='Success' ){ echo'BuildRun successful..........' updateGitlabCommitStatus name:'Build_Verify' , state:'success' } else { echo'Failed Build Run stage' updateGitlabCommitStatus name:'Build_Verify' , state:'failed' skipRemainingStages=true } * } catch (Exception exc) { echo'error catched in build run' skipRemainingStages=true } if (skipRemainingStages) { currentBuild.result='Failure in BuildRun' error("Stopping early") } echo'Build Running completed.... moving to next stage' } } } stage('UiDeploy') { steps { script { try { echo'>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' echo'Notify' } catch (Exception exc2) { skipRemainingStages=true echo'xxxxxxxx Failed Deploy xxxxxxxxx' } if (skipRemainingStages) { currentBuild.result='Failure in Deploy' echo'-------- Failed Deploy ----------' error("Stopping early") } } } } } }
