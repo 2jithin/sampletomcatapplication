@@ -69,7 +69,7 @@ pipeline {
                         //echo 'Notify'
 						
 						
-						sh 'mvn clean package'
+						sh 'mvn -B -DskipTests clean package'
                     }
                     
                     catch (Exception exc2) {
@@ -96,6 +96,7 @@ pipeline {
                         echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
 						//scp /var/lib/jenkins/workspace/target
+						scp webapp/target/webapp.war ec2-user@ip-172-31-20-227:/root/tomcat/webapp
 						
                     }
                     
