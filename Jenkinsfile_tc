@@ -36,8 +36,11 @@ pipeline {
                 script {
                     skipRemainingStages = false
                     try {
-                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Initializing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
+						sh 'pwd'
+						
+						
                     }
                     
                     catch (Exception exc2) {
@@ -61,8 +64,9 @@ pipeline {
                 script {
                     skipRemainingStages = false
                     try {
-                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Builing and generate war file <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
+						sh 'mvn clean package'
                     }
                     
                     catch (Exception exc2) {
@@ -80,7 +84,7 @@ pipeline {
                 }
             }
         }
-        stage('B_Deploy') {
+        stage('C_Deploy') {
             steps {
                 //checkout scm
                 script {
@@ -88,6 +92,8 @@ pipeline {
                     try {
                         echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
+						//scp /var/lib/jenkins/workspace/target
+						
                     }
                     
                     catch (Exception exc2) {
