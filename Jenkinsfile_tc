@@ -56,4 +56,58 @@ pipeline {
             }
         }
 }
+    stages {
+        stage('B_Building') {
+            steps {
+                //checkout scm
+                script {
+                    skipRemainingStages = false
+                    try {
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        //echo 'Notify'
+                    }
+                    
+                    catch (Exception exc2) {
+                        
+                        skipRemainingStages = true
+                        echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
+                    }
+
+                    if (skipRemainingStages) {
+                        
+                        currentBuild.result = 'Failure in Deploy'
+                        echo '-------- Failed Deploy ----------'
+                        error("Stopping early")  
+                    }
+                }
+            }
+        }
+}
+    stages {
+        stage('C_Deploy') {
+            steps {
+                //checkout scm
+                script {
+                    skipRemainingStages = false
+                    try {
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        //echo 'Notify'
+                    }
+                    
+                    catch (Exception exc2) {
+                        
+                        skipRemainingStages = true
+                        echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
+                    }
+
+                    if (skipRemainingStages) {
+                        
+                        currentBuild.result = 'Failure in Deploy'
+                        echo '-------- Failed Deploy ----------'
+                        error("Stopping early")  
+                    }
+                }
+            }
+        }
+}
 }	
