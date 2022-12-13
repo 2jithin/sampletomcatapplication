@@ -32,13 +32,14 @@ pipeline {
     stages {
         stage('A_CheckoutPrerequisites') {
             steps {
-                //checkout scm
+                checkout scm
                 script {
                     skipRemainingStages = false
                     try {
                         echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Initializing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
 						sh 'pwd'
+						sh 'ls -a'
 						
 						
                     }
@@ -66,6 +67,8 @@ pipeline {
                     try {
                         echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Builing and generate war file <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
+						
+						
 						sh 'mvn clean package'
                     }
                     
