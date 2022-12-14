@@ -69,7 +69,7 @@ pipeline {
                         //echo 'Notify'
 						
 						
-						sh 'mvn -B -DskipTests clean package --quite'
+						sh 'mvn -q -B -DskipTests clean package'
                     }
                     
                     catch (Exception exc2) {
