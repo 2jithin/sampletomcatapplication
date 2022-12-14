@@ -134,7 +134,7 @@
       <h2>About Me</h2>
       <p>I don't look like some handsome horse, but I am a real desert king. I can survive days without water.</p>
       <h2>My Career</h2>
-      <p>I work as a web developer for a company that makes websites for Your businesses.</p>
+      <p>I work as a Sr Soft Engineer for a company that makes automation support for Your businesses.</p>
       <hr><br>
       <h2>How Can I Help You?</h2>
       <table>
