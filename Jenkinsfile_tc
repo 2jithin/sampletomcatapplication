@@ -89,16 +89,17 @@ pipeline {
         }
         stage('C_Deploy') {
             steps {
-                //checkout scm
+                
                 script {
                     skipRemainingStages = false
                     try {
-                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tenant <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tomcat Server <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
                         //echo 'Notify'
 						
 						//scp webapp/target/webapp.war ec2-user@18.117.241.251:/root/tomcat/webapp
 		        //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp.war', war: '**/*.war'
-			deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '/root/tomcat/webapps', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp', war: 'target/*.war'			
+			            //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '/root/tomcat/webapps', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp', war: 'target/*.war'			
+						deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: 'manager/text', url: 'http://18.117.180.76:8080')], contextPath: 'webapp.war', war: '**/*.war'
                     }
                     
                     catch (Exception exc2) {
