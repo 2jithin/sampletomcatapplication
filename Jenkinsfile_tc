@@ -1,0 +1,115 @@
+// ***********DON'T CHANGE ANY PARAMETER OR DETAILS IN SCRIPT FILE >This May lead to failure testing and deploy.**************
+pipeline {
+    agent any
+
+	        // Environment Variables
+            
+	        environment {
+			PATH = "/etc/maven/apache-maven-3.8.6/bin:$PATH"
+	        // Remove brackets below({}) update project details inside double quotes
+	        ProjectCloneUrl = "{}"
+	        GitLab_SDMND = "{}"
+	        GitLabProjectId = "{}"
+	        ReleaseFolder = "{}"
+	        ReleaseEnvironment = "Production"
+	        ReleaseTenant = "Prod"
+
+	        // ***********DON'T CHANGE ANY PARAMETER OR SCRIPT SYNTAX WITHOUT ANY GUIDENCE >This May lead to failure on testing and deploy.************** 
+	        
+	    }
+
+	    options {
+	        //timestamps()
+			timeout(time:60, unit:'MINUTES')
+	        skipDefaultCheckout true
+	    }
+
+    stages {
+        stage('A_CheckoutPrerequisites') {
+            steps {
+                checkout scm
+                script {
+                    skipRemainingStages = false
+                    try {
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Initializing <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        //echo 'Notify'
+						sh 'pwd'
+						sh 'ls -a'
+                    }
+                    catch (Exception exc2) {
+                        
+                        skipRemainingStages = true
+                        echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
+                    }
+                    if (skipRemainingStages) {
+                        
+                        currentBuild.result = 'Failure in Deploy'
+                        echo '-------- Failed Deploy ----------'
+                        error("Stopping early")  
+                    }
+                }
+            }
+        }
+        stage('B_Building') {
+            steps {
+                //checkout scm
+                script {
+                    skipRemainingStages = false
+                    try {
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Builing and generate war file <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        
+						// build maven package						
+						
+						sh 'mvn -B -DskipTests clean package -q'
+                    }
+                    
+                    catch (Exception exc2) {
+                        
+                        skipRemainingStages = true
+                        echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
+                    }
+
+                    if (skipRemainingStages) {
+                        
+                        currentBuild.result = 'Failure in Deploy'
+                        echo '-------- Failed Deploy ----------'
+                        error("Stopping early")  
+                    }
+                }
+            }
+        }
+        stage('C_Deploy') {
+            steps {
+                
+                script {
+                    skipRemainingStages = false
+                    try {
+                        echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Deploying to Prod Tomcat Server <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                        //echo 'Notify'
+						
+						//sshagent(['deploy_user']) {
+						//sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/test2/webapp/target/webapp.war  ec2-user@3.84.210.250:/opt/tomcat/webapps"
+						
+						//scp webapp/target/webapp.war ec2-user@18.117.241.251:/root/tomcat/webapp
+		        //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp.war', war: '**/*.war'
+			            //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '/root/tomcat/webapps', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp', war: 'target/*.war'			
+						deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', url: 'http://18.117.180.76:8080')], war: '**/*.war'
+                    }
+                    
+                    catch (Exception exc2) {
+                        
+                        skipRemainingStages = true
+                        echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
+                    }
+
+                    if (skipRemainingStages) {
+                        
+                        currentBuild.result = 'Failure in Deploy'
+                        echo '-------- Failed Deploy ----------'
+                        error("Stopping early")  
+                    }
+                }
+            }
+        }
+    }
+}	
