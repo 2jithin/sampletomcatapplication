@@ -40,16 +40,12 @@ pipeline {
                         //echo 'Notify'
 						sh 'pwd'
 						sh 'ls -a'
-						
-						
                     }
-                    
                     catch (Exception exc2) {
                         
                         skipRemainingStages = true
                         echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
                     }
-
                     if (skipRemainingStages) {
                         
                         currentBuild.result = 'Failure in Deploy'
@@ -66,8 +62,8 @@ pipeline {
                     skipRemainingStages = false
                     try {
                         echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Builing and generate war file <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-                        //echo 'Notify'
-						
+                        
+						// build maven package						
 						
 						sh 'mvn -B -DskipTests clean package -q'
                     }
