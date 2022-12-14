@@ -25,6 +25,22 @@ pipeline {
 	    }
 
     stages {
+        stage('Properties_parameters') {
+            steps {
+                script {
+                    skipRemainingStages = false
+					properties([
+						parameters([
+						string(
+							defaultValue: 'main',
+							name: 'branchname',
+							trim: true
+						)
+						])
+					])
+                }
+            }
+        }
         stage('A_CheckoutPrerequisites') {
             steps {
                 checkout scm
