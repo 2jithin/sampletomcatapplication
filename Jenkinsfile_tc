@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     skipRemainingStages = false
-                    echo '============================================== Parameter properties ========================================'
+                    echo '============================================== Parameter properties =========================================================================='
 					properties([
 						parameters([
 						string(
@@ -40,7 +40,8 @@ pipeline {
 						])
 					])
                 }
-                echo "$BUILD_BRANCH_NAME"
+                echo "parameter branchname $BUILD_BRANCH_NAME"
+                echo "parameter userid $tomcat_userid"
             }
         }
         stage('A_CheckoutPrerequisites') {
