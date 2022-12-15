@@ -36,6 +36,11 @@ pipeline {
 							defaultValue: 'main',
 							name: 'BUILD_BRANCH_NAME',
 							trim: true
+						),
+                        string(
+							defaultValue: 'jenkinspipe',
+							name: 'tomcat_userid',
+							trim: true
 						)
 						])
 					])
