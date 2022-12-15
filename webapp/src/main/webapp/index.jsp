@@ -112,7 +112,7 @@
 <body>
   <div class="container">
     <header class="header">
-      <h1>Mr. Jithin C</h1>
+      <h1>hey Visitor</h1>
       <div class="social">
         <a href="#"><i class="fab fa-facebook"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
