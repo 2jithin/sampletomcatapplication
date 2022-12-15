@@ -47,6 +47,7 @@ pipeline {
                 }
                 echo "parameter branchname $BUILD_BRANCH_NAME"
                 echo "parameter userid $tomcat_userid"
+                sh 'git branch'
             }
         }
         stage('A_CheckoutPrerequisites') {
