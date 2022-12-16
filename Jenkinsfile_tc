@@ -114,9 +114,8 @@ pipeline {
 						
 						//sshagent(['deploy_user']) {
 						//sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/test2/webapp/target/webapp.war  ec2-user@3.84.210.250:/opt/tomcat/webapps"
-						
 						//scp webapp/target/webapp.war ec2-user@18.117.241.251:/root/tomcat/webapp
-		        //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp.war', war: '**/*.war'
+		                //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp.war', war: '**/*.war'
 			            //deploy adapters: [tomcat9(credentialsId: 'tomcatdeployer', path: '/root/tomcat/webapps', url: 'http://ec2-18-117-241-251.us-east-2.compute.amazonaws.com:8080/')], contextPath: 'webapp', war: 'target/*.war'			
 						deploy adapters: [tomcat9(credentialsId: 'jenkinspipe', url: 'http://3.21.134.208:8080')], war: '**/*.war'
                     }
@@ -125,6 +124,8 @@ pipeline {
                         
                         skipRemainingStages = true
                         echo 'xxxxxxxx Failed Deploy xxxxxxxxx'
+                        echo 'The error showing :'+ exc2.tostring()
+                        throw exc2
                     }
 
                     if (skipRemainingStages) {
