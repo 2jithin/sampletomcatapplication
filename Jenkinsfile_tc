@@ -138,4 +138,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo "I will always run or execute this step "
+            echo "Email Notification plugin code can add here ///"
+        }
+    }
 }	
