@@ -1,4 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+Jenkinsfile_tc text=auto
 
 /webapp/src/main/webapp/.simple.html export-ignore
