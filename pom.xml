@@ -214,10 +214,10 @@
   </dependencyManagement>
 
   <scm>
-    <connection>scm:git:git@github.com:jleetutorial/maven-project.git</connection>
-    <developerConnection>scm:git:git@github.com:jleetutorial/maven-project.git</developerConnection>
+    <connection>scm:git:git@github.com:2jithin/sampletomcatapplication.git</connection>
+    <developerConnection>scm:git:git@github.com:2jithin/sampletomcatapplication.git</developerConnection>
     <tag>HEAD</tag>
-    <url>http://github.com/jleetutorial/maven-project</url>
+    <url>http://github.com/2jithin/sampletomcatapplication</url>
   </scm>
 
   <prerequisites>
