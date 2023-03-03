@@ -13,7 +13,8 @@ pipeline {
     stages {
         stage('Checkout git') {
             steps {
-               git branch: 'main', url: 'https://github.com/2jithin/sampletomcatapplication.git'
+                cleanWs()
+                git branch: 'main', url: 'https://github.com/2jithin/sampletomcatapplication.git'
             }
         }
         
@@ -23,7 +24,7 @@ pipeline {
             }
             post {               
                 success {
-                    junit 'target/surefire-reports/**/*.xml'
+                    junit 'server/target/surefire-reports/**/*.xml'
                 }
                 failure {
                     echo 'failued due to test result file missing'
