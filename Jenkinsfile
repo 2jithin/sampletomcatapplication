@@ -19,7 +19,7 @@ pipeline {
         
         stage ('Build & JUnit Test') {
             steps {
-                sh 'mvn install' 
+                sh 'mvn install -qa' 
             }
             post {
                success {
