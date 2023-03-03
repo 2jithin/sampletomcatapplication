@@ -8,7 +8,7 @@
 pipeline {
     agent any
     tools { 
-        maven 'maven-3.8.6' 
+        maven 'maven-3.8*' 
     }
     stages {
         stage('Checkout git') {
@@ -19,7 +19,7 @@ pipeline {
         
         stage ('Build & JUnit Test') {
             steps {
-                sh 'mvn install -qa' 
+                sh 'mvn install -q' 
             }
             post {
                success {
