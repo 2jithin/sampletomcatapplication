@@ -13,8 +13,8 @@ pipeline {
     stages {
         stage('Checkout git') {
             steps {
-                cleanWs()
-                git branch: 'main', url: 'https://github.com/2jithin/sampletomcatapplication.git'
+                sh 'ls'
+                //git branch: 'main', url: 'https://github.com/2jithin/sampletomcatapplication.git'
             }
         }
         
