@@ -21,10 +21,13 @@ pipeline {
             steps {
                 sh 'mvn install -q' 
             }
-            post {
-               success {
+            post {               
+                success {
                     junit 'target/surefire-reports/**/*.xml'
-                }   
+                }
+                failure {
+                    echo 'failued due to test result file missing'
+                }  
             }
         }
         stage('SonarQube Analysis'){
