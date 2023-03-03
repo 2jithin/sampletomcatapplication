@@ -24,7 +24,7 @@ pipeline {
             }
             post {               
                 success {
-                    junit 'server/target/surefire-reports/**/*.xml'
+                    junit skipPublishingChecks: true, testResults: 'server/target/surefire-reports/**/*.xml' // due to [Checks API] No suitable checks publisher found. added this line of script
                 }
                 failure {
                     echo 'failued due to test result file missing'
