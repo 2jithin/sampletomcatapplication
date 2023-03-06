@@ -34,7 +34,7 @@ pipeline {
         stage('SonarQube Analysis'){
             steps{
                    withSonarQubeEnv('sonarqube') {
-                        sh 'mvn clean verify sonar:sonar \
+                        sh 'mvn clean verify sonar:sonar -q \
                         -Dsonar.projectKey=devops-project-key \
                         -Dsonar.host.url=http://18.219.112.218:9000 \
                         -Dsonar.login=652d97c92761bbe219d1699c107860c0ba7417dd'
