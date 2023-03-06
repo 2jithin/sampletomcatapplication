@@ -1,4 +1,4 @@
-// 4a37f4f08323805b85b935e0548d81d2cd6be150
+// 652d97c92761bbe219d1699c107860c0ba7417dd
 
 // mvn sonar:sonar \
 //   -Dsonar.projectKey=jenkinstest \
@@ -36,8 +36,8 @@ pipeline {
                    withSonarQubeEnv('sonarqube') {
                         sh 'mvn clean verify sonar:sonar \
                         -Dsonar.projectKey=devops-project-key \
-                        -Dsonar.host.url=$sonarurl \
-                        -Dsonar.login=$sonarlogin'
+                        -Dsonar.host.url=http://18.219.112.218:9000 \
+                        -Dsonar.login=652d97c92761bbe219d1699c107860c0ba7417dd'
                     }
             }
         }
