@@ -37,7 +37,7 @@ pipeline {
                         sh 'mvn clean verify sonar:sonar -q \
                         -Dsonar.projectKey=devops-project-key \
                         -Dsonar.host.url=http://18.219.112.218:9000 \
-                        -Dsonar.login=652d97c92761bbe219d1699c107860c0ba7417dd'
+                        -Dsonar.login=483e7f9d333cf43626b9eec4fc50533891f87b4e'
                     }
             }
         }
